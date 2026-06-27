@@ -1,0 +1,27 @@
+ .product-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    width: 220px;
+    display: inline-block;
+    height: 400px;
+}
+.product-card img {
+    width: 200px;
+    height: 200px;
+        }
+.product-container :hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+button{
+    background-color: green;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+

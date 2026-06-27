@@ -1,0 +1,23 @@
+# newcommerce — Django E-Commerce Project
+# Python 3.12+ compatible
+# Install with: pip install -r requirements.txt
+
+# Core Framework
+Django==5.2.8
+
+# Image handling (required for ProductImage.image ImageField)
+Pillow==11.1.0
+
+# Crispy Forms (used in sellar templates)
+django-crispy-forms==2.3
+crispy-bootstrap4==2024.10
+
+# ASGI server (included with Django, listed for clarity)
+asgiref==3.8.1
+
+# Timezone support
+tzdata==2024.2
+
+# Optional but recommended for production
+# gunicorn==21.2.0       # Production WSGI server
+# whitenoise==6.7.0      # Serve static files in production

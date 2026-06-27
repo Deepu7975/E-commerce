@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+
+<h1>Product list</h1>
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>#</th>
+        <th>product</th>
+        <th>color</th>
+        <th>size</th>
+        <th>sku</th>
+        <th>price</th>
+        <th>discounted price</th>
+        <th>stock</th>
+        <th></th>
+        <th>images</th>
+    </tr>
+    {% for i in varients %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ i.product }}</td>
+        <td>{{ i.color }}</td>
+        <td>{{ i.size }}</td>
+        <td>{{ i.sku }}</td>
+        <td>{{i.price}}</td>
+        <td>{{ i.discounted_price}}</td>
+        <td>{{i.stock}}</td>
+        
+        <td>
+            <a href="{% url 'add_image' i.id %}">ADD images</a> |
+        
+        </td>
+        <td>
+            <a href="{% url 'add_image' i.id %}">image</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+<div>
+    <p><a href="{% url 'add_varient' product.id %}">Add varient</a></p>
+</div>
+
+
+
+</body>
+</html>

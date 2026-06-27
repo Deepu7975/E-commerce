@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}My Store Profile{% endblock %}
+
+{% block content %}
+<style>
+    .profile-container {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    .profile-header {
+        margin-bottom: 24px;
+        border-bottom: 2px solid #28a745;
+        padding-bottom: 12px;
+    }
+    .profile-header h2 { color: #28a745; margin: 0; }
+    .profile-header p  { color: #666; margin: 4px 0 0; font-size: 14px; }
+    .status-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 8px;
+    }
+    .status-pending  { background: #fff3cd; color: #856404; }
+    .status-approved { background: #d1e7dd; color: #0f5132; }
+    .status-rejected { background: #f8d7da; color: #842029; }
+    .btn-save {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 28px;
+        border: none;
+        border-radius: 5px;
+        font-size: 15px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .btn-save:hover { background-color: #218838; }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .back-link:hover { text-decoration: underline; }
+</style>
+
+<div class="profile-container">
+    <a href="{% url 'display_products' %}" class="back-link">← Back to Products</a>
+
+    <div class="profile-header">
+        <h2>🏪 My Store Profile</h2>
+        <p>Complete your store details to start listing products.</p>
+        <span class="status-badge status-{{ seller.approval_status }}">
+            Approval Status: {{ seller.approval_status|title }}
+        </span>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div style="padding:10px; margin-bottom:16px; border-radius:5px;
+                        background:{% if message.tags == 'success' %}#d1e7dd{% else %}#f8d7da{% endif %};
+                        color:{% if message.tags == 'success' %}#0f5132{% else %}#842029{% endif %};">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn-save">Save Store Profile</button>
+    </form>
+</div>
+{% endblock %}

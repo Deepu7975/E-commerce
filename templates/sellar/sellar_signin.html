@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{%load static%}
+{% block title %}Sellar Sign In{% endblock %}
+
+{% block content %}
+<style>
+    @import url("{% static 'css/sellar_signin.css' %}");
+</style>
+{% if form.errors %}
+<p style="color:red;">Invalid username or password. Please try again.</p>
+{% endif %}
+
+{%load crispy_forms_tags%}
+<form method="POST" class="sellar-signin-form">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Sign In</button>
+</form>
+{% endblock %}

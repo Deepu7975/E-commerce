@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<style>
+    @import url("{% static 'css/productlist.css' %}");
+</style>
+<body>
+
+<h1>Product list</h1>
+
+    {% for i in products %}
+        <p>{{ forloop.counter }}</p>
+        <p>{{ i.name }}</p>
+        <p>{{ i.description }}</p>
+        <p>{{ i.category }}</p>
+        <p>{{ i.base_price }}</p>
+        <p>{{ i.discounted_price}}</p>
+        <p>{{i.brand}}</p>
+    
+    {% endfor %}
+
+
+{% comment %} 
+<div>
+    <p><a href="{% url 'add_product' %}" class="Add">Add New Product</a></p>
+</div> {% endcomment %}
+
+
+
+</body>
+</html>
