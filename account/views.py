@@ -28,13 +28,12 @@ def signinview(request):
             if user is not None and user.is_authenticated:
                 login(request, user)
                 messages.success(request, 'Logged in successfully')
-                # ✅ FIXED: redirect based on role
                 if user.role == 'seller':
                     return redirect('display_products')
-                elif user.role == 'admin' or user.is_staff:
+                elif user.is_staff or user.role == 'admin':
                     return redirect('/admin/')
                 else:
-                    return redirect('home')   # customer goes to home page
+                    return redirect('home')     # customer
             else:
                 messages.error(request, 'Invalid username or password.')
         context = {"form": fm}

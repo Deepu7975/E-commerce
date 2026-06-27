@@ -1,27 +1,43 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-   
-        <link rel="stylesheet" href="{% static 'css/home.css' %}">
-       
-</head>
-<body>
-<div class="product-container">
-{% for product in products %}
-<div class="product-card">
-    <img src="{{ product.image.url }}" alt="" >
-    <p>{{ product.product.brand|upper  }}</p>
-    <p>{{ product.product.discounted_price }}</p><strike>{{ product.product.base_price }}</strike>
-    <p>{{ product.product.name }}</p>
-    <button>Add to Cart</button>
-    
-    
+
+{% block title %}NewCommerce — Shop{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 fw-bold">Featured Products</h2>
+
+{% if products %}
+<div class="product-container row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for item in products %}
+    <div class="col">
+        <div class="product-card card h-100 shadow-sm">
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.product.name }}"
+                 style="height:200px; object-fit:cover;">
+            <div class="card-body d-flex flex-column">
+                <p class="text-muted small mb-1">{{ item.product.brand|upper }}</p>
+                <h6 class="card-title fw-semibold">{{ item.product.name }}</h6>
+                <div class="mt-auto">
+                    {% if item.product.discounted_price %}
+                        <span class="text-danger fw-bold fs-5">₹{{ item.product.discounted_price }}</span>
+                        <strike class="text-muted ms-1 small">₹{{ item.product.base_price }}</strike>
+                    {% else %}
+                        <span class="fw-bold fs-5">₹{{ item.product.base_price }}</span>
+                    {% endif %}
+                    <button class="btn btn-success btn-sm w-100 mt-2">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
+{% else %}
+<div class="text-center py-5">
+    <h4 class="text-muted">No products available yet.</h4>
+    <p class="text-muted">Check back soon!</p>
 </div>
-</body>
-</html>
+{% endif %}
+{% endblock %}

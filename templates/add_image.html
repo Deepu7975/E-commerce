@@ -1,15 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="add">
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Image — {{ varient.sku }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4">
+            <div class="d-flex align-items-center mb-3">
+                <a href="{% url 'varients' product.id %}" class="btn btn-outline-secondary btn-sm me-3">← Back</a>
+                <h4 class="fw-bold mb-0">Add Image</h4>
+            </div>
+            <p class="text-muted small">
+                Product: <strong>{{ product.name }}</strong> &mdash;
+                Variant SKU: <code>{{ varient.sku }}</code>
+            </p>
+
+            <!-- show existing images for this variant -->
+            {% if varient.images.all %}
+            <div class="mb-3">
+                <p class="small fw-semibold mb-1">Existing images:</p>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for img in varient.images.all %}
+                        <div class="position-relative">
+                            <img src="{{ img.image.url }}" width="70" height="70"
+                                 style="object-fit:cover; border-radius:6px; border:1px solid #ddd;">
+                            {% if img.is_primary %}
+                                <span class="badge bg-success position-absolute top-0 start-0" style="font-size:9px;">Primary</span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-success">Upload Image</button>
+                    <a href="{% url 'varients' product.id %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

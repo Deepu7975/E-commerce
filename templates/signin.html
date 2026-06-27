@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Signin</h2>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Signin</button>
-    </form>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm p-4 mt-3">
+            <h3 class="mb-1 fw-bold">Sign In</h3>
+            <p class="text-muted small mb-4">Welcome back to NewCommerce</p>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary w-100 mt-2">Sign In</button>
+            </form>
+            <hr>
+            <p class="text-center small mb-0">
+                New here? <a href="{% url 'register' %}">Create an account</a>
+            </p>
+            <p class="text-center small">
+                Are you a seller? <a href="{% url 'sellar_signin' %}">Seller Sign In</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

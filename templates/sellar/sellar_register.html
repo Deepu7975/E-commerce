@@ -1,22 +1,32 @@
-{% extends 'base.html'%}
-{%load static%}
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 
+{% block title %}Register as Seller{% endblock %}
 
-{% block title %}Sellar Register{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/sellar_register.css' %}">
+{% endblock %}
 
 {% block content %}
-<style>
-    @import url("{% static 'css/sellar_register.css' %}");
-</style>
-
-{% if form.errors %}
-    <p style="color:red;">Please correct the errors below.</p>
-{% endif %}
-
-{%load crispy_forms_tags%}
-<form method="POST" class="sellar-register-form">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" >Register</button>
-</form>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm p-4 mt-3">
+            <h3 class="mb-1 fw-bold">Seller Registration</h3>
+            <p class="text-muted small mb-4">Create your seller account and start listing products</p>
+            {% if form.errors %}
+                <div class="alert alert-danger">Please correct the errors below.</div>
+            {% endif %}
+            <form method="POST" class="sellar-register-form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success w-100 mt-2">Register as Seller</button>
+            </form>
+            <hr>
+            <p class="text-center small mb-0">
+                Already a seller? <a href="{% url 'sellar_signin' %}">Sign In</a>
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}

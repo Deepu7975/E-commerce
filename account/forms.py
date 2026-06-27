@@ -1,6 +1,7 @@
 from django import forms
 from .models import User
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -9,7 +10,7 @@ class RegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.role = 'customer'    # ← set role
+        user.role = 'customer'      # every account/register user is a customer
         if commit:
             user.save()
         return user
